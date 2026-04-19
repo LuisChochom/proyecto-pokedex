@@ -101,3 +101,23 @@ class PokemonPlanta(Pokemon):
 
         oponente.hp_actual -= danio
         return danio
+
+class PokemonElectrico(Pokemon):
+    def atacar(self, oponente):
+        costo = 15
+        if self.energia_actual < costo:
+            return 0
+        self.energia_actual -= costo
+
+        danio = 20
+        paralizado = False
+
+        if random.random() <= 0.20:
+            paralizado = True
+        
+        if oponente.bloqueo_activo:
+            danio //= 2
+            oponente.bloqueo_activo = False
+        
+        oponente.hp_actual -= danio
+        return danio, paralizado
