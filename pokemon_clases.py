@@ -84,3 +84,20 @@ class PokemonAgua(Pokemon):
         
         oponente.hp_actual -=  danio
         return danio
+
+class PokemonPlanta(Pokemon):
+    def atacar(self, oponente):
+        costo = 15
+        if self.energia_actual < costo:
+            return 0
+        self.energia_actual -= costo
+
+        multiplicador = 2 if isinstance(oponente, PokemonAgua) else 1
+        danio = 20 * multiplicador
+
+        if oponente.bloqueo_activo:
+            danio //= 2
+            oponente.bloqueo_activo = False
+
+        oponente.hp_actual -= danio
+        return danio
