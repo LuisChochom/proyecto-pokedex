@@ -50,3 +50,37 @@ class Pokemon(ABC):
     def descansar(self):
         self.energia_actual += 20
 
+class PokemonFuego(Pokemon):
+    def atacar(self, oponente):
+        costo = 15
+        if self.energia_actual < costo:
+            return 0
+        self.energia_actual -= costo
+
+        from pokemon_clases import PokemonPlanta
+        multiplicador = 2 if isinstance(oponente, PokemonPlanta)else 1
+        danio = 20 * multiplicador
+
+        if oponente.bloque_activo:
+            danio //= 2
+            oponente.bloque_activo = False
+        
+        oponente.hp_actual -= danio
+        return danio
+
+class PokemonAgua(Pokemon):
+    def atacar(self, oponente):
+        costo = 15
+        if self.energia_actual < costo:
+            return 0
+        self.energia_actual -= costo
+
+        multiplicador = 2 if isinstance (oponente, PokemonFuego) else 1
+        danio = 20 * multiplicador
+
+        if oponente.bloqueo_activo:
+            danio //= 2
+            oponente.bloqueo_activo = False
+        
+        oponente.hp_actual -=  danio
+        return danio
