@@ -36,4 +36,17 @@ class Pokemon(ABC):
         else:
             self._energia_actual = valor
     
+    @abstractmethod
+    def atacar(self, oponente):
+        pass
+
+    def defender(self):
+        if self.energia_actual > 5:
+            self.energia_actual -= 5
+            self.bloqueo_activo = True
+            return True
+        return False
     
+    def descansar(self):
+        self.energia_actual += 20
+
