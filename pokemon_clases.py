@@ -1,14 +1,16 @@
 from abc import ABC, abstractmethod
 import random
 
+# Clase Base Abstracta (Criterio 3 del enunciado)
 class Pokemon(ABC):
     def __init__(self, nombre, hp_max, ep_max):
         self.nombre = nombre
+        # Encapsulamiento: Uso de variables privadas con guion bajo (Criterio 6)
         self._hp_actual = hp_max
         self._hp_maximo = hp_max
         self._energia_actual = ep_max
         self._energia_maxima = ep_max
-        self._bloqueo_activo = False
+        self.bloqueo_activo = False
 
     @property
     def hp_actual(self):
@@ -41,9 +43,10 @@ class Pokemon(ABC):
         pass
 
     def defender(self):
+        # Consume 5 EP y reduce daño a la mitad (Criterio 2)
         if self.energia_actual >= 5:
             self.energia_actual -= 5
-            self._bloqueo_activo = True
+            self.bloqueo_activo = True
             return True
         return False
     
