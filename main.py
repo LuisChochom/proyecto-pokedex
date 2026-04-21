@@ -50,4 +50,28 @@ def ejecutar_simulacion():
         print("\n[ERROR] Entrada no válida. Use solo números del catálogo.")
         ejecutar_simulacion()
     
-    
+def procesar_turno(atacante, defensor):
+    print(f"[{atacante.nombre}] HP: {atacante.hp_actual} | EP: {atacante.energia_actual}")
+    print("1. Atacar\n2. Defender\n3. Descansar")
+    accion = input("> Elija accion: ")
+    ejecutar_accion(atacante, defensor, accion)
+
+def ejecutar_accion(p_activo, p_objetivo, accion):
+    if accion == "1":
+        resultado = p_activo.atacar(p_objetivo)
+        if isinstance(resultado, tuple):
+            danio, paraliza = resultado
+            print(f"{p_activo.nombre} ataca! Daño: {danio}. {'¡Paralizado!' if paraliza else ''}")
+        else:
+            print(f"{p_activo.nombre} ataca e inflige {resultado} de daño.")
+    elif accion == "2":
+        if p_activo.defender():
+            print(f"{p_activo.nombre} se defiende y reduce el daño del próximo ataque.")
+        else:
+            print(f"{p_activo.nombre} no tiene energía suficiente para defender.")
+    elif accion == "3":
+        p_activo.descansar()
+        print(f"{p_activo.nombre} descansa y recupera energía.")
+
+if __name__ == "__main__":
+    ejecutar_simulacion()
