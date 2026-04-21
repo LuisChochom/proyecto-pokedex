@@ -63,9 +63,9 @@ class PokemonFuego(Pokemon):
         multiplicador = 2 if isinstance(oponente, PokemonPlanta)else 1
         danio = 20 * multiplicador
 
-        if oponente.bloque_activo:
+        if oponente.bloqueo_activo:
             danio //= 2
-            oponente.bloque_activo = False
+            oponente.bloqueo_activo = False
         
         oponente.hp_actual -= danio
         return danio
