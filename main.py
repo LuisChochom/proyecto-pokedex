@@ -17,7 +17,7 @@ def ejecutar_simulacion():
     try:
         print("1. Jugador vs Jugador\n2. Jugador vs Computadora")
         modo = input("> opcion: ")
-        
+
         mostrar_catalogo_disponible()
 
         p1_idx = input("Jugador 1, elija el número del Pokémon: ")
@@ -31,7 +31,6 @@ def ejecutar_simulacion():
         else:
             p2_idx = input("Jugador 2, elija el número del Pokémon: ")
             p2 = crear_objeto_pokemon(p2_idx)
-            print(f"Jugador 2 ha elegido a {p2.nombre}.")
         
         while p1.hp_actual > 0 and p2.hp_actual > 0:
             print(f"\n--- TURNO DE {p1.nombre} ---")
@@ -46,33 +45,35 @@ def ejecutar_simulacion():
                 procesar_turno(p2, p1)
             
         ganador = p1.nombre if p1.hp_actual > 0 else p2.nombre
-        print(f"\n¡{ganador} ha ganado la batalla!")
+        print(f"\n¡{ganador.upper()} ha ganado la batalla!")
     except (ValueError, KeyError):
         print("\n[ERROR] Entrada no válida. Use solo números del catálogo.")
         ejecutar_simulacion()
     
 def procesar_turno(atacante, defensor):
     print(f"[{atacante.nombre}] HP: {atacante.hp_actual} | EP: {atacante.energia_actual}")
-    print("1. Atacar\n2. Defender\n3. Descansar")
-    accion = input("> Elija accion: ")
+    print("1. Atacar | 2. Defender | 3. Descansar")
+    accion = input("> Elija acción: ")
     ejecutar_accion(atacante, defensor, accion)
 
 def ejecutar_accion(p_activo, p_objetivo, accion):
     if accion == "1":
         resultado = p_activo.atacar(p_objetivo)
+        # Manejo especial para el tipo Eléctrico y su parálisis
         if isinstance(resultado, tuple):
             danio, paraliza = resultado
-            print(f"{p_activo.nombre} ataca! Daño: {danio}. {'¡Paralizado!' if paraliza else ''}")
+            print(f"¡{p_activo.nombre} ataca! Daño: {danio}. {'¡PARALIZADO!' if paraliza else ''}")
         else:
-            print(f"{p_activo.nombre} ataca e inflige {resultado} de daño.")
+            print(f"¡{p_activo.nombre} ataca e inflige {resultado} de daño!")
     elif accion == "2":
         if p_activo.defender():
-            print(f"{p_activo.nombre} se defiende y reduce el daño del próximo ataque.")
+            print(f"{p_activo.nombre} se pone en guardia.")
         else:
-            print(f"{p_activo.nombre} no tiene energía suficiente para defender.")
+            print(f"¡{p_activo.nombre} no tiene energía para defender!")
     elif accion == "3":
         p_activo.descansar()
-        print(f"{p_activo.nombre} descansa y recupera energía.")
+        print(f"{p_activo.nombre} está descansando para recuperar EP.")
+
 
 if __name__ == "__main__":
     ejecutar_simulacion()
