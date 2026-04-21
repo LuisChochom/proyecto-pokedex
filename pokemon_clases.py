@@ -73,7 +73,7 @@ class PokemonFuego(Pokemon):
 class PokemonAgua(Pokemon):
     def atacar(self, oponente):
         costo = 15
-        if self.energia_actual < costo:return 0
+        if self.energia_actual < costo: return 0
         self.energia_actual -= costo
 
         multiplicador = 2 if isinstance (oponente, PokemonFuego) else 1
@@ -89,7 +89,7 @@ class PokemonAgua(Pokemon):
 class PokemonPlanta(Pokemon):
     def atacar(self, oponente):
         costo = 15
-        if self.energia_actual < costo:return 0
+        if self.energia_actual < costo: return 0
         self.energia_actual -= costo
 
         multiplicador = 2 if isinstance(oponente, PokemonAgua) else 1
