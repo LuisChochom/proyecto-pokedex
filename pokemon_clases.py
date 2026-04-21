@@ -25,7 +25,7 @@ class Pokemon(ABC):
     
     @property
     def energia_actual(self):
-        self._energia_actual
+        return self._energia_actual
     
     @energia_actual.setter
     def energia_actual(self, valor):
@@ -41,9 +41,9 @@ class Pokemon(ABC):
         pass
 
     def defender(self):
-        if self.energia_actual > 5:
+        if self.energia_actual >= 5:
             self.energia_actual -= 5
-            self.bloqueo_activo = True
+            self._bloqueo_activo = True
             return True
         return False
     
