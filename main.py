@@ -17,6 +17,7 @@ def ejecutar_simulacion():
     try:
         print("1. Jugador vs Jugador\n2. Jugador vs Computadora")
         modo = input("> opcion: ")
+        
         mostrar_catalogo_disponible()
 
         p1_idx = input("Jugador 1, elija el número del Pokémon: ")
@@ -33,13 +34,13 @@ def ejecutar_simulacion():
             print(f"Jugador 2 ha elegido a {p2.nombre}.")
         
         while p1.hp_actual > 0 and p2.hp_actual > 0:
-            print(f"\nTurno de {p1.nombre} (HP: {p1.hp_actual}/{p1.hp_maximo}, Energía: {p1.energia_actual}/{p1.energia_maxima})")
+            print(f"\n--- TURNO DE {p1.nombre} ---")
             procesar_turno(p1, p2)
             if p2.hp_actual <= 0: break
 
-            print(f"\nTurno de {p2.nombre} (HP: {p2.hp_actual}/{p2.hp_maximo}, Energía: {p2.energia_actual}/{p2.energia_maxima})")
+            print(f"\n--- TURNO DE {p2.nombre} ---")
             if modo == "2":
-                accion_ia = random.choice("1", "2", "3")
+                accion_ia = random.choice(["1", "2", "3"])
                 ejecutar_accion(p2, p1, accion_ia)
             else:
                 procesar_turno(p2, p1)
