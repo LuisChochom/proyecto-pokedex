@@ -56,7 +56,7 @@ class Pokemon(ABC):
         else:
             self._energia_actual = valor
 
-    # Método abstracto atacar (Criterio 5 - Polimorfismo):
+    # Método abstracto atacar (Criterio 5 - Polimorfismo):  
     # Declarado como abstractmethod, obliga a todas las subclases a implementar su propia versión de atacar
     # Esto permite polimorfismo: cada tipo de Pokémon tiene un comportamiento distinto al atacar
     @abstractmethod
